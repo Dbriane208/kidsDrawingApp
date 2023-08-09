@@ -13,7 +13,7 @@ import android.view.MotionEvent
 import android.view.View
 import java.util.ArrayList
 
-@Suppress("UNREACHABLE_CODE", "UNUSED_EXPRESSION")
+@Suppress("UNUSED_EXPRESSION")
 class DrawingView(context : Context, attrs:AttributeSet) : View(context,attrs) {
 
     private var mDrawPath : CustomPath? = null
@@ -102,10 +102,11 @@ class DrawingView(context : Context, attrs:AttributeSet) : View(context,attrs) {
         mDrawPaint!!.strokeWidth = mBrushSize
     }
 
-    internal class CustomPath (var color : Int, var brushThickness : Float) : Path(){
-
+    fun setColor(newColor:String){
+       color = Color.parseColor(newColor)
+       mDrawPaint!!.color = color
     }
-
+    internal class CustomPath (var color : Int, var brushThickness : Float) : Path()
 }
 
 
