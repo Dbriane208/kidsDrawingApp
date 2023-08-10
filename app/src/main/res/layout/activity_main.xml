@@ -6,27 +6,47 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-
-    <daniel.brian.kidsdrawingapp.DrawingView
-        android:id="@+id/drawingView"
+    <FrameLayout
+        android:id="@+id/frameLayoutBackground"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_margin="0.5dp"
+        android:layout_margin="5dp"
+        android:padding="1dp"
         android:background="@drawable/background_view_layout"
         app:layout_constraintBottom_toTopOf="@+id/paintColorLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent"
+        >
+
+        <ImageView
+        android:id="@+id/backgroundImage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/paris_tower"
+        tools:ignore="ContentDescription" />
+
+        <daniel.brian.kidsdrawingapp.DrawingView
+        android:id="@+id/drawingView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#80FFFFFF"
+            />
+
+
+    </FrameLayout>
+
 
     <LinearLayout
         android:id="@+id/paintColorLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/btnBrush"
+        app:layout_constraintBottom_toTopOf="@+id/allActionsLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/drawingView"
+        app:layout_constraintTop_toBottomOf="@+id/frameLayoutBackground"
         >
 
         <ImageButton
@@ -128,21 +148,39 @@
             android:onClick="paintClicked"
             tools:ignore="HardcodedText,TouchTargetSizeCheck,ImageContrastCheck" />
 
-
     </LinearLayout>
 
-    <ImageButton
+    <LinearLayout
+        android:id="@+id/allActionsLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/paintColorLayout"
+        >
+
+        <ImageButton
+        android:id="@+id/btnSetBackgroundImage"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_margin="2dp"
+        android:importantForAccessibility="no"
+        android:scaleType="fitXY"
+        android:src="@drawable/gallery_logo"
+        tools:ignore="ImageContrastCheck" />
+
+        <ImageButton
         android:id="@+id/btnBrush"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:src="@drawable/pixel_brush"
         android:scaleType="fitXY"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/paintColorLayout"
-        android:contentDescription="selectBrush"
-        tools:ignore="HardcodedText" />
+        android:importantForAccessibility="no"/>
+
+    </LinearLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
