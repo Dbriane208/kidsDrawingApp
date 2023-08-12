@@ -169,7 +169,7 @@
         android:layout_margin="2dp"
         android:importantForAccessibility="no"
         android:scaleType="fitXY"
-        android:src="@drawable/gallery_logo"
+        android:src="@drawable/gallery_option"
         tools:ignore="ImageContrastCheck" />
 
         <ImageButton
@@ -179,6 +179,23 @@
         android:src="@drawable/pixel_brush"
         android:scaleType="fitXY"
         android:importantForAccessibility="no"/>
+
+        <ImageButton
+        android:id="@+id/btnRedo"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/redo_button"
+        android:scaleType="fitXY"
+        android:importantForAccessibility="no"/>
+
+        <ImageButton
+        android:id="@+id/btnUndo"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/undo_btn"
+        android:scaleType="fitXY"
+        android:importantForAccessibility="no"/>
+
 
     </LinearLayout>
 

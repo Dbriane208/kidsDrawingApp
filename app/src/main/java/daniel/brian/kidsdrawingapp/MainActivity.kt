@@ -51,6 +51,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -72,6 +73,16 @@ class MainActivity : AppCompatActivity() {
         val btnSetBackgroundImage = findViewById<ImageButton>(R.id.btnSetBackgroundImage)
         btnSetBackgroundImage.setOnClickListener {
             requestStoragePermission()
+        }
+
+        val btnRedo = findViewById<ImageButton>(R.id.btnRedo)
+        btnRedo.setOnClickListener {
+            drawingView?.onClickRedoPath()
+        }
+
+        val btnUndo = findViewById<ImageButton>(R.id.btnUndo)
+        btnUndo.setOnClickListener {
+            drawingView?.onClickUndoPath()
         }
     }
     private fun showBrushSizeChooserDialog(){
