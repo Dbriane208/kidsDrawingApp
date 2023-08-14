@@ -176,9 +176,10 @@
         android:id="@+id/btnBrush"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:src="@drawable/pixel_brush"
+        android:importantForAccessibility="no"
         android:scaleType="fitXY"
-        android:importantForAccessibility="no"/>
+        android:src="@drawable/paint_brush"
+        tools:ignore="ImageContrastCheck" />
 
         <ImageButton
         android:id="@+id/btnRedo"
@@ -193,6 +194,14 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:src="@drawable/undo_btn"
+        android:scaleType="fitXY"
+        android:importantForAccessibility="no"/>
+
+        <ImageButton
+        android:id="@+id/btnSave"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/save_button"
         android:scaleType="fitXY"
         android:importantForAccessibility="no"/>
 
