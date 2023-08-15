@@ -9,6 +9,7 @@ import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
+import android.media.MediaScannerConnection
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
@@ -36,6 +37,7 @@ class MainActivity : AppCompatActivity() {
 
     private var drawingView : DrawingView? = null
     private var mImageButtonCurrentPaint : ImageButton? = null
+    private var customProgressDialog : Dialog? = null
 
     private val openGalleryLauncher : ActivityResultLauncher<Intent> = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()){
@@ -64,7 +66,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
-    @SuppressLint("MissingInflatedId")
+    @SuppressLint("MissingInflatedId", "SuspiciousIndentation")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -100,6 +102,7 @@ class MainActivity : AppCompatActivity() {
 
         val btnSave = findViewById<ImageButton>(R.id.btnSave)
         btnSave.setOnClickListener {
+            showProgressDialog()
             if(isReadStorageAllowed()) {
                lifecycleScope.launch{
                  val flDrawingView : FrameLayout = findViewById(R.id.frameLayoutBackground)
@@ -204,8 +207,10 @@ class MainActivity : AppCompatActivity() {
                     result = createFile.absolutePath
 
                     runOnUiThread{
+                        cancelProgressDialog()
                         if(result.isNotEmpty()){
                             Toast.makeText(this@MainActivity,"File saved successfully : $result",Toast.LENGTH_SHORT).show()
+                            shareImage(result)
                         }else{
                             Toast.makeText(this@MainActivity,"Something went wrong while saving the file.",Toast.LENGTH_SHORT).show()
                         }
@@ -217,5 +222,29 @@ class MainActivity : AppCompatActivity() {
             }
         }
         return result
+    }
+    private fun showProgressDialog (){
+        customProgressDialog  = Dialog(this@MainActivity)
+        customProgressDialog?.setContentView(R.layout.dialog_custom_progress)
+        customProgressDialog?.show()
+    }
+
+    private fun cancelProgressDialog (){
+        if(customProgressDialog != null){
+            customProgressDialog?.dismiss()
+            customProgressDialog = null
+        }
+    }
+
+    private fun shareImage (result : String){
+        // _ represents path
+        MediaScannerConnection.scanFile(this, arrayOf(result),null){
+                _, uri ->
+            val shareIntent = Intent()
+            shareIntent.action = Intent.ACTION_SEND
+            shareIntent.putExtra(Intent.EXTRA_STREAM,uri)
+            shareIntent.type = "image/png"
+            startActivity(Intent.createChooser(shareIntent,"Share"))
+        }
     }
 }
